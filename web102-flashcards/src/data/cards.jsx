@@ -1,4 +1,4 @@
-
+import "./cards.css"
 const Rules = () => (
     <div className="rules-text">
         <strong>How to Play:</strong>
