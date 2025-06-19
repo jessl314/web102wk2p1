@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import cards from "../data/cards.jsx"
 import Flashcard from "./Card"
-
+import "./CardContainer.css"
 
 
 const FlashcardContainer = () => {
@@ -14,7 +14,13 @@ const FlashcardContainer = () => {
 
     const nextCard = () => {
         setIsFlipped(false);
-        setCurrIndex((prev) => (prev + 1) % cards.length)
+        setCurrIndex((prev) => {
+        let randomIndex;
+        do {
+        randomIndex = Math.floor(Math.random() * cards.length);
+        } while (randomIndex === prev && cards.length > 1); 
+        return randomIndex;
+        });
     }
     const prevCard = () => {
         setIsFlipped(false);

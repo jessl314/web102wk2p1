@@ -1,5 +1,20 @@
 .rules-text {
     font-size: 16px;
-    justify-content: center;
-    justify-items: center;
+    display: flex;
+    flex-direction: column;   
+    align-items: center;      
+    justify-content: center;  
+    height: 100%;             
+    text-align: left;       
+    padding: 10px;    
+}
+
+.rules-text ul {
+  padding-left: 1em;  
+  margin-left: 0;     
+  list-style-position: inside; 
+}
+
+.rules-text li {
+  margin-bottom: 0.5em; 
 }
