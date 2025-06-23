@@ -8,23 +8,30 @@ import "./CardContainer.css"
 const FlashcardContainer = () => {
     const [currIndex, setCurrIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
+    const [guess, setGuess] = useState('');
+    const [isCorrect, setIsCorrect] = useState(null);
+
 
     const currCard = cards[currIndex];
     console.log(currCard);
 
     const nextCard = () => {
         setIsFlipped(false);
-        setCurrIndex((prev) => {
-        let randomIndex;
-        do {
-        randomIndex = Math.floor(Math.random() * cards.length);
-        } while (randomIndex === prev && cards.length > 1); 
-        return randomIndex;
-        });
+        setCurrIndex((prev) => (prev + 1) % cards.length);
+        setIsCorrect(null); 
     }
     const prevCard = () => {
         setIsFlipped(false);
         setCurrIndex((curr) => (curr - 1 + cards.length) % cards.length)
+        setIsCorrect(null);
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("Guessed:", guess);
+        const correctAnswer = currCard.back.toLowerCase().trim();
+        const userAnswer = guess.toLowerCase().trim();
+        setIsCorrect(userAnswer === correctAnswer);
+        setGuess('');
     }
     return (
         <div>
@@ -33,10 +40,30 @@ const FlashcardContainer = () => {
             back={currCard.back}
             flipped={isFlipped}
             onFlip={() => setIsFlipped(!isFlipped)}
+            correct={isCorrect}
         />
+        <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
+            <input
+                type="text"
+                value={guess}
+                onChange={(e) => setGuess(e.target.value)}
+                placeholder=""
+            />
+            <button type="submit">Guess</button>
+        </form>
         <div style={{ marginTop: "20px" }}>
-            <button onClick={prevCard}>Previous</button>
-            <button onClick={nextCard}>Next</button>
+            <button 
+            onClick={prevCard}
+            disabled={currIndex === 0}
+            className={currIndex === 0 ? "nav-button disabled" : "nav-button"}>
+                Previous
+            </button>
+            <button 
+            onClick={nextCard}
+            disabled={currIndex === cards.length - 1}
+            className={currIndex === cards.length - 1 ? "nav-button disabled" : "nav-button"}>
+                Next
+            </button>
         </div>
         </div>
     )

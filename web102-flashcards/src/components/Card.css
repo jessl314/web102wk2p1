@@ -39,3 +39,29 @@
   transform: rotateY(180deg);
   background-color: #ffe;
 }
+
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border: 3.5px solid gray;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.neutral-border {
+  border-color: gray;
+}
+.green-border {
+  border-color: green;
+}
+.red-border {
+  border-color: red;
+}
